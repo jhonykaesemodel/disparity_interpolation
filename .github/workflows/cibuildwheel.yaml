@@ -21,4 +21,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install cibuildwheel
     - name: Build wheels.
+      env:
+        CIBW_SKIP: "cp27-* cp34-* cp35-* cp36-*"
       run: python -m cibuildwheel --output-dir wheelhouse
