@@ -24,9 +24,9 @@ jobs:
       run: |
         pip install -U Cython numpy
     - name: Build wheels.
-      env:
-        CIBW_SKIP: "cp27-* cp34-* cp35-* cp36-*"
-        CIBW_BEFORE_ALL_LINUX: "yum -y install opencv-devel"
-        CIBW_BEFORE_ALL_MACOS: "brew install opencv@2"
+#       env:
+#         CIBW_SKIP: "cp27-* cp34-* cp35-* cp36-*"
+#         CIBW_BEFORE_ALL_LINUX: "yum -y install opencv-devel"
+#         CIBW_BEFORE_ALL_MACOS: "brew install opencv@2"
 
       run: python -m cibuildwheel --output-dir wheelhouse
