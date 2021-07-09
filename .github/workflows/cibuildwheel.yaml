@@ -24,7 +24,8 @@ jobs:
         pip3 install -U cython numpy
     - name: Build wheels.
       env:
-        CIBW_SKIP: "cp27-* cp34-* cp35-* cp36-*"
+        CIBW_SKIP: "cp27-* cp34-* cp35-* cp36-* pp* *-win32"
+        CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
 #         CIBW_BEFORE_ALL_LINUX: "yum -y install opencv-devel"
 #         CIBW_BEFORE_ALL_MACOS: "brew install opencv@2"
 
