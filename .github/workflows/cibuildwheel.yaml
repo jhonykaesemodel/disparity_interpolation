@@ -21,7 +21,7 @@ jobs:
         pip3 install cibuildwheel
     - name: Install dependencies.
       run: |
-        pip3 install -U Cython numpy
+        pip3 install -U cython numpy
     - name: Build wheels.
       env:
         CIBW_SKIP: "cp27-* cp34-* cp35-* cp36-*"
