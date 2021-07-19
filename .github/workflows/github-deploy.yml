@@ -25,14 +25,10 @@ jobs:
           miniforge-version: latest
           use-mamba: true
       - name: Install wheel
-        run: |
-          conda install wheel opencv numpy cython
-          python -m pip install --upgrade pip
-          python -m pip install cibuildwheel==2.0.0
+        run: conda install wheel opencv numpy cython
 
       - name: build
-        run: python -m cibuildwheel --output-dir dist/
-        # run: python setup.py sdist bdist_wheel
+        run: python setup.py sdist bdist_wheel
 
       - uses: actions/upload-artifact@v2
         with:
