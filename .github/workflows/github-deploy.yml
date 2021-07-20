@@ -4,52 +4,6 @@ name: Build and upload to PyPI
 on: [push, pull_request]
 
 jobs:
-  # build_wheels:
-  #   name: Build wheels on ${{ matrix.os }}
-  #   runs-on: ${{ matrix.os }}
-  #   strategy:
-  #     matrix:
-  #       os: [windows-2019, macos-10.15]
-  #     fail-fast: true
-  #   defaults:
-  #     run:
-  #       shell: bash -l {0}
-
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: conda-incubator/setup-miniconda@v2
-  #       with:
-  #         activate-environment: ""
-  #         auto-activate-base: true
-  #         miniforge-variant: Mambaforge
-  #         miniforge-version: latest
-  #         use-mamba: true
-  #     - name: Install wheel
-  #       run: conda install wheel opencv numpy cython
-
-  #     - name: build
-  #       run: python setup.py sdist bdist_wheel
-
-  #     - uses: actions/upload-artifact@v2
-  #       with:
-  #         path: dist/*.whl
-
-  # upload_pypi:
-  #   needs: [build_wheels]
-  #   runs-on: ubuntu-latest
-  #   if: startsWith(github.event.ref, 'refs/tags') || github.event_name == 'release'
-  #   steps:
-  #     - uses: actions/download-artifact@v2
-  #       with:
-  #         name: artifact
-  #         path: dist
-
-  #     - uses: pypa/gh-action-pypi-publish@v1.4.2
-  #       with:
-  #         user: __token__
-  #         password: ${{ secrets.PYPI_API_TOKEN }}
-  #         # To test: repository_url: https://test.pypi.org/legacy/
-
   build_linux_wheels:
     runs-on: ubuntu-20.04
     strategy:
@@ -94,20 +48,3 @@ jobs:
   #       with:
   #         user: __token__
   #         password: ${{ secrets.PYPI_API_TOKEN }}
-
-
-
-
-
-
-
-
-
-
-    # - name: Publish wheels to PyPI
-    #   env:
-    #     TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-    #     TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-    #   run: |
-    #     twine upload dist/*-manylinux*.whl
-
