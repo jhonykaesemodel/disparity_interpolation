@@ -30,7 +30,7 @@ jobs:
       - name: build
         run: |
           python setup.py sdist bdist_wheel
-          auditwheel repair dist/*.whl -w repaired
+          auditwheel repair --plat manylinux2014_x86_64 dist/*.whl -w repaired
 
       - uses: actions/upload-artifact@v2
         with:
