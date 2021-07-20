@@ -29,14 +29,14 @@ jobs:
         run: conda install wheel opencv numpy cython
 
       - name: build
-        run: python3 setup.py sdist bdist_wheel
+        run: python setup.py sdist bdist_wheel
 
       - name: Audit wheel for manylinux
         if: matrix.os == 'ubuntu-16.04'
         shell: bash
         run: |
           conda install auditwheel
-          python3 -m auditwheel repair --plat manylinux_2_23_x86_64 dist/*.whl
+          python -m auditwheel repair --plat manylinux_2_23_x86_64 dist/*.whl
           rm -r dist
           mv wheelhouse dist
       - name: Store the binary wheel
