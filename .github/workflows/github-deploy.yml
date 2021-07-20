@@ -9,7 +9,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-18.04, windows-2019, macos-10.15]
+        os: [ubuntu-20.04, windows-2019, macos-10.15]
       fail-fast: true
     defaults:
       run:
@@ -28,14 +28,14 @@ jobs:
         run: conda install wheel opencv numpy cython
 
       - name: build
-        run: python3 setup.py sdist bdist_wheel
+        run: python setup.py sdist bdist_wheel
 
       - name: Audit wheel for manylinux
-        if: matrix.os == 'ubuntu-18.04'
+        if: matrix.os == 'ubuntu-20.04'
         shell: bash
         run: |
-          python3 -m pip install --upgrade auditwheel
-          python3 -m auditwheel repair --plat manylinux1_x86_64 dist/*.whl
+          python -m pip install --upgrade auditwheel
+          python -m auditwheel repair --plat manylinux2014_x86_64 dist/*.whl
           rm -r dist
           mv wheelhouse dist
       - name: Store the binary wheel
