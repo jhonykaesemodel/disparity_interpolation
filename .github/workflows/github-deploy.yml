@@ -19,7 +19,7 @@ jobs:
     - name: Install dependencies
       run: |
         /opt/python/${{ matrix.python-version }}/bin/python -m pip install numpy cython
-        yum install opencv opencv-devel opencv-python
+        yum -y install opencv opencv-devel opencv-python
     - name: Build python manylinux
       run: /opt/python/${{ matrix.python-version }}/bin/python setup.py bdist_wheel
     - name: Audit python wheel
