@@ -10,6 +10,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-16.04, windows-2019, macos-10.15]
+        python-version: [3.7, 3.8]
       fail-fast: true
     defaults:
       run:
@@ -34,7 +35,7 @@ jobs:
         if: matrix.os == 'ubuntu-16.04'
         shell: bash
         run: |
-          pip3 install --upgrade pip
+          pip install --upgrade pip
           python3 -m pip install --upgrade auditwheel
           python3 -m auditwheel repair --plat manylinux_2_23_x86_64 dist/*.whl
           rm -r dist
