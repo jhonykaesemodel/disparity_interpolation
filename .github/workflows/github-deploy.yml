@@ -36,7 +36,7 @@ jobs:
         run: |
           gcc --version
           pip install auditwheel
-          python -m auditwheel repair dist/*.whl
+          python -m auditwheel repair dist/*.whl --plat manylinux_2_24_x86_64
           rm -r dist
           mv wheelhouse dist
       - name: Store the binary wheel
