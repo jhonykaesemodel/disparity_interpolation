@@ -4,58 +4,41 @@ name: Build and upload to PyPI
 on: [push, pull_request]
 
 jobs:
-  build_wheels:
-    name: Build wheels on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+  build_linux_wheels:
+    name: Build manylinux wheels
+    runs-on: ubuntu-latest
+    container: quay.io/pypa/manylinux2014_x86_64
     strategy:
       matrix:
-        os: [ubuntu-20.04, windows-2019, macos-10.15]
-        python-version: [3.9]
-      fail-fast: true
-    defaults:
-      run:
-        shell: bash -l {0}
-
+        python-version: [cp37-cp37m, cp38-cp38, cp39-cp39]
     steps:
-      - uses: actions/checkout@v2
-      - uses: conda-incubator/setup-miniconda@v2
-        with:
-          activate-environment: ""
-          auto-activate-base: true
-          miniforge-variant: Mambaforge
-          miniforge-version: latest
-          use-mamba: true
-      - name: Install wheel
-        run: conda install wheel opencv numpy cython
+    - name: Info
+      run: /opt/python/${{ matrix.python-version }}/bin/python --version
+    - name: checkout
+      uses: actions/checkout@v2
+    - name: Install dependencies
+      run: |
+        /opt/python/${{ matrix.python-version }}/bin/python -m pip install numpy cython
+        yum install opencv opencv-devel opencv-python
+    - name: Build python manylinux
+      run: /opt/python/${{ matrix.python-version }}/bin/python setup.py bdist_wheel
+    - name: Audit python wheel
+      run: auditwheel repair dist/*.whl
+    - name: artifacts
+      uses: actions/upload-artifact@v2
 
-      - name: build
-        run: python setup.py bdist_wheel
+  # upload_pypi:
+  #   needs: [build_wheels]
+  #   runs-on: ubuntu-latest
+  #   if: startsWith(github.event.ref, 'refs/tags') || github.event_name == 'release'
+  #   steps:
+  #     - uses: actions/download-artifact@v2
+  #       with:
+  #         name: artifact
+  #         path: dist
 
-      - name: Audit wheel for manylinux
-        if: contains(matrix.os, 'ubuntu')
-        run: |
-          gcc --version
-          pip install auditwheel
-          python -m auditwheel repair dist/*.whl --plat manylinux_2_24_x86_64
-          rm -r dist
-          mv wheelhouse dist
-      - name: Store the binary wheel
-        uses: actions/upload-artifact@v2
-        with:
-          path: dist/*.whl
-
-  upload_pypi:
-    needs: [build_wheels]
-    runs-on: ubuntu-latest
-    if: startsWith(github.event.ref, 'refs/tags') || github.event_name == 'release'
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: artifact
-          path: dist
-
-      - uses: pypa/gh-action-pypi-publish@v1.4.2
-        with:
-          user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
-          # To test: repository_url: https://test.pypi.org/legacy/
+  #     - uses: pypa/gh-action-pypi-publish@v1.4.2
+  #       with:
+  #         user: __token__
+  #         password: ${{ secrets.PYPI_API_TOKEN }}
+  #         # To test: repository_url: https://test.pypi.org/legacy/
