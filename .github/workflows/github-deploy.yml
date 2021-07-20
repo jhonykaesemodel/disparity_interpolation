@@ -30,9 +30,9 @@ jobs:
           python-versions: 'cp36-cp36m cp37-cp37m cp38'
           build-requirements: 'cython numpy opencv'
 
-      - uses: actions/upload-artifact@v2
-        with:
-          path: dist/*-manylinux*.whl
+      # - uses: actions/upload-artifact@v2
+      #   with:
+      #     path: dist/*-manylinux*.whl
 
   # upload_pypi_manylinux:
   #   needs: [build_linux_wheels]
