@@ -80,20 +80,20 @@ jobs:
         with:
           path: dist/*-manylinux*.whl
 
-  upload_pypi_manylinux:
-    needs: [build_linux_wheels]
-    runs-on: ubuntu-latest
-    if: startsWith(github.event.ref, 'refs/tags') || github.event_name == 'release'
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: artifact
-          path: dist
+  # upload_pypi_manylinux:
+  #   needs: [build_linux_wheels]
+  #   runs-on: ubuntu-latest
+  #   if: startsWith(github.event.ref, 'refs/tags') || github.event_name == 'release'
+  #   steps:
+  #     - uses: actions/download-artifact@v2
+  #       with:
+  #         name: artifact
+  #         path: dist
 
-      - uses: pypa/gh-action-pypi-publish@v1.4.2
-        with:
-          user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
+  #     - uses: pypa/gh-action-pypi-publish@v1.4.2
+  #       with:
+  #         user: __token__
+  #         password: ${{ secrets.PYPI_API_TOKEN }}
 
 
 
