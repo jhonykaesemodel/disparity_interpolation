@@ -9,7 +9,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-20.04, windows-2019, macos-10.15]
+        os: [windows-2019, macos-10.15]
       fail-fast: true
     defaults:
       run:
@@ -25,16 +25,14 @@ jobs:
           miniforge-version: latest
           use-mamba: true
       - name: Install wheel
-        run: conda install wheel opencv numpy cython auditwheel
+        run: conda install wheel opencv numpy cython
 
       - name: build
-        run: |
-          python setup.py sdist bdist_wheel
-          auditwheel repair --plat manylinux2014_x86_64 dist/*.whl -w repaired
+        run: python setup.py sdist bdist_wheel
 
       - uses: actions/upload-artifact@v2
         with:
-          path: repaired/*.whl
+          path: dist/*.whl
 
   upload_pypi:
     needs: [build_wheels]
@@ -44,7 +42,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: artifact
-          path: repaired
+          path: dist
 
       - uses: pypa/gh-action-pypi-publish@v1.4.2
         with:
