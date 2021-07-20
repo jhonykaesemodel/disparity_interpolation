@@ -31,7 +31,7 @@ def ext_modules():
             libraries=libraries,
             library_dirs=library_dirs,
             language="c++",
-            extra_compile_args=["-w", "-O3", "-std=c++11"],
+            extra_compile_args=["-w", "-O3"],
         )
     ]
     return cythonize(extensions)
