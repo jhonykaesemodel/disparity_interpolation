@@ -35,7 +35,6 @@ jobs:
         if: matrix.os == 'ubuntu-16.04'
         shell: bash
         run: |
-          pip install --upgrade pip
           python3 -m pip install --upgrade auditwheel
           python3 -m auditwheel repair --plat manylinux_2_23_x86_64 dist/*.whl
           rm -r dist
