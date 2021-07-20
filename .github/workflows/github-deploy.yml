@@ -77,8 +77,8 @@ jobs:
         build-requirements: 'cython numpy opencv'
 
     - uses: actions/upload-artifact@v2
-        with:
-          path: dist/*-manylinux*.whl
+      with:
+        path: dist/*-manylinux*.whl
 
   upload_pypi_manylinux:
     needs: [build_linux_wheels]
