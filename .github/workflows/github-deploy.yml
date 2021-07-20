@@ -17,15 +17,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: conda-incubator/setup-miniconda@v2
-        with:
-          activate-environment: ""
-          auto-activate-base: true
-          miniforge-variant: Mambaforge
-          miniforge-version: latest
-          use-mamba: true
-      - name: Install wheel
-        run: conda install wheel opencv numpy cython
+
+      # Used to host cibuildwheel
+      - uses: actions/setup-python@v2
+
+      # - uses: conda-incubator/setup-miniconda@v2
+      #   with:
+      #     activate-environment: ""
+      #     auto-activate-base: true
+      #     miniforge-variant: Mambaforge
+      #     miniforge-version: latest
+      #     use-mamba: true
+      # - name: Install wheel
+      #   run: conda install wheel opencv numpy cython
 
       # - name: build
       #   run: python setup.py sdist bdist_wheel
