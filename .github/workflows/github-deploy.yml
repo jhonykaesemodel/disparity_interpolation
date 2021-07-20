@@ -24,11 +24,11 @@ jobs:
       - name: Install wheel
         run: conda install wheel opencv numpy cython
 
-      - name: Build manylinux Python wheels
-      - uses: RalfG/python-wheels-manylinux-build@v0.3.4-manylinux2010_x86_64
-        with:
-          python-versions: 'cp36-cp36m cp37-cp37m cp38'
-          build-requirements: 'cython numpy opencv'
+      # - name: Build manylinux Python wheels
+      # - uses: RalfG/python-wheels-manylinux-build@v0.3.4-manylinux2010_x86_64
+      #   with:
+      #     python-versions: 'cp36-cp36m cp37-cp37m cp38'
+      #     build-requirements: 'cython numpy opencv'
 
       # - uses: actions/upload-artifact@v2
       #   with:
