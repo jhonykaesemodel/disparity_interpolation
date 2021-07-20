@@ -34,8 +34,9 @@ jobs:
         if: matrix.os == 'ubuntu-18.04'
         shell: bash
         run: |
+          ldd --version
           python3 -m pip install --upgrade auditwheel
-          python3 -m auditwheel repair --plat manylinux_2_27_x86_64 dist/*.whl
+          python3 -m auditwheel repair --plat manylinux_2_27_x86_64 dist/*.whl -V
           rm -r dist
           mv wheelhouse dist
       - name: Store the binary wheel
