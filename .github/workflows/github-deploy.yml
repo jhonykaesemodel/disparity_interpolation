@@ -25,7 +25,7 @@ jobs:
         yum -y install opencv opencv-devel opencv-python
 
     - name: Build
-      run: /opt/python/${{ matrix.python-version }}/bin/python setup.py bdist_wheel
+      run: /opt/python/${{ matrix.python-version }}/bin/python setup.py sdist bdist_wheel
 
     - name: Audit wheel
       run: |
