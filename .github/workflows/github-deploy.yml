@@ -4,40 +4,46 @@ name: Build and upload to PyPI
 on: [push, pull_request]
 
 jobs:
-  build_linux_wheels:
+  build_manylinux_wheels:
     name: Build manylinux wheels
     runs-on: ubuntu-latest
     container: quay.io/pypa/manylinux2014_x86_64
     strategy:
       matrix:
         python-version: [cp37-cp37m, cp38-cp38, cp39-cp39]
+
     steps:
     - name: Info
       run: /opt/python/${{ matrix.python-version }}/bin/python --version
-    - name: checkout
+
+    - name: Checkout
       uses: actions/checkout@v2
+
     - name: Install dependencies
       run: |
         /opt/python/${{ matrix.python-version }}/bin/python -m pip install numpy cython
         yum -y install opencv opencv-devel opencv-python
-    - name: Build python manylinux
+
+    - name: Build
       run: /opt/python/${{ matrix.python-version }}/bin/python setup.py bdist_wheel
-    - name: Audit python wheel
+
+    - name: Audit wheel
       run: |
         auditwheel repair dist/*.whl
         cp wheelhouse/*-manylinux*.whl dist/.
-    - name: artifacts
+
+    - name: Upload artifact
       uses: actions/upload-artifact@v2
       with:
         path: dist/*-manylinux*.whl
 
-  build_wheels:
+  build_win_macos_wheels:
     name: Build wheels on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [windows-2019, macos-10.15]
-        python-version: [3.9]
+        python-version: [3.7 3.8 3.9]
       fail-fast: true
     defaults:
       run:
@@ -52,19 +58,20 @@ jobs:
           miniforge-variant: Mambaforge
           miniforge-version: latest
           use-mamba: true
-      - name: Install wheel
+
+      - name: Install dependencies
         run: conda install wheel opencv numpy cython
 
-      - name: build
+      - name: Build
         run: python setup.py bdist_wheel
 
-      - name: Store the binary wheel
+      - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           path: dist/*.whl
 
-  upload_pypi:
-    needs: [build_linux_wheels, build_wheels]
+  publish_pypi:
+    needs: [build_manylinux_wheels, build_win_macos_wheels]
     runs-on: ubuntu-latest
     if: startsWith(github.event.ref, 'refs/tags') || github.event_name == 'release'
     steps:
@@ -77,4 +84,3 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
-

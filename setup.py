@@ -7,6 +7,7 @@ from setuptools import find_packages, setup
 from setuptools.extension import Extension
 import platform
 
+
 include_dirs = [np.get_include()]
 library_dirs = []
 
@@ -18,8 +19,8 @@ if platform.system() == "Windows":
 elif platform.system() == "Linux":
     library_dirs += ["/usr/local/include/lib"]
     libraries = ["opencv_core", "opencv_imgproc"]
-    opencv_fpath = osp.join("/usr/local/include/", "include", "opencv4")
-else:
+    opencv_fpath = "/usr/local/include/opencv4"
+else:  # macos
     library_dirs += [osp.join(conda_fpath, "lib")]
     libraries = ["opencv_core", "opencv_imgproc"]
     opencv_fpath = osp.join(conda_fpath, "include", "opencv4")
