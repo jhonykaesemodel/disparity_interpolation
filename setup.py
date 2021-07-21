@@ -13,17 +13,17 @@ library_dirs = []
 
 conda_fpath = os.environ.get("CONDA")
 if platform.system() == "Windows":
-    library_dirs += [osp.join(conda_fpath, "envs", "foo", "Library", "lib")]
+    library_dirs += [osp.join(conda_fpath, "Library", "lib")]
     libraries = ["opencv_core452", "opencv_imgproc452"]
-    opencv_fpath = osp.join(conda_fpath, "envs", "foo", "Library", "include")
+    opencv_fpath = osp.join(conda_fpath, "Library", "include")
 elif platform.system() == "Linux":
     library_dirs += ["/usr/local/include/lib"]
     libraries = ["opencv_core", "opencv_imgproc"]
     opencv_fpath = "/usr/local/include/opencv4"
 else:  # macos
-    library_dirs += [osp.join(conda_fpath, "envs", "foo", "lib")]
+    library_dirs += [osp.join(conda_fpath, "lib")]
     libraries = ["opencv_core", "opencv_imgproc"]
-    opencv_fpath = osp.join(conda_fpath, "include", "envs", "foo", "opencv4")
+    opencv_fpath = osp.join(conda_fpath, "include", "opencv4")
 include_dirs += [opencv_fpath]
 
 
