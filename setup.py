@@ -21,9 +21,9 @@ elif platform.system() == "Linux":
     libraries = ["opencv_core", "opencv_imgproc"]
     opencv_fpath = "/usr/local/include/opencv4"
 else:  # macos
-    library_dirs += [osp.join(conda_fpath, "lib")]
+    library_dirs += [osp.join("/Users/runner/miniconda3", "lib")]
     libraries = ["opencv_core", "opencv_imgproc"]
-    opencv_fpath = osp.join(conda_fpath, "include", "opencv4")
+    opencv_fpath = osp.join("/Users/runner/miniconda3", "include", "opencv4")
 include_dirs += [opencv_fpath]
 
 
