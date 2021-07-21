@@ -54,7 +54,7 @@ jobs:
       - uses: conda-incubator/setup-miniconda@v2
         with:
           python-version: ${{ matrix.python-version }}
-          activate-environment: ""
+          activate-environment: true
           auto-activate-base: true
           miniforge-variant: Mambaforge
           miniforge-version: latest
