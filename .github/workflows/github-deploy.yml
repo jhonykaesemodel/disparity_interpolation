@@ -54,14 +54,14 @@ jobs:
       - uses: conda-incubator/setup-miniconda@v2
         with:
           python-version: ${{ matrix.python-version }}
-          activate-environment: ""
+          activate-environment: foo
           auto-activate-base: true
           miniforge-variant: Mambaforge
           miniforge-version: latest
           use-mamba: true
 
       - name: Install dependencies
-        run: conda install wheel opencv numpy cython
+        run: conda install -n foo wheel opencv numpy cython
 
       - name: Build
         run: python setup.py bdist_wheel
