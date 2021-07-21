@@ -21,7 +21,7 @@ elif platform.system() == "Linux":
     libraries = ["opencv_core", "opencv_imgproc"]
     opencv_fpath = "/usr/local/include/opencv4"
 else:  # macos
-    library_dirs += [osp.join(conda_fpath, "lib")]
+    library_dirs += [osp.join(conda_fpath, "envs", "foo", "lib")]
     libraries = ["opencv_core", "opencv_imgproc"]
     opencv_fpath = osp.join(conda_fpath, "envs", "foo", "include", "opencv4")
 include_dirs += [opencv_fpath]
@@ -43,8 +43,10 @@ def ext_modules():
 
 
 if __name__ == "__main__":
+
     with open("README.md", "r") as f:
         long_description = f.read()
+
     setup(
         name="disparity_interpolation",
         version="1.0.4",

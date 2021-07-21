@@ -63,6 +63,9 @@ jobs:
       - name: Install dependencies
         run: conda install wheel opencv numpy cython
 
+      - name: Check numpy version
+        run: python -c "import numpy; print(numpy.__version__)"
+
       - name: Build
         run: python setup.py bdist_wheel
 
