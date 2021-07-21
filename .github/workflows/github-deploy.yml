@@ -23,7 +23,7 @@ jobs:
     - name: Build python manylinux
       run: /opt/python/${{ matrix.python-version }}/bin/python setup.py bdist_wheel
     - name: Audit python wheel
-      run: auditwheel repair wheelhouse/*.whl
+      run: auditwheel repair dist/*.whl
     - name: artifacts
       uses: actions/upload-artifact@v2
       with:
