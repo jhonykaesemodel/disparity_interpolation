@@ -38,7 +38,7 @@ jobs:
         path: dist/*-manylinux*.whl
 
   build_win_macos_wheels:
-    name: Build wheels on ${{ matrix.os }} (${{ matrix.python-version }})
+    name: Build wheels on ${{ matrix.os }} (py${{ matrix.python-version }})
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -54,9 +54,8 @@ jobs:
       - uses: conda-incubator/setup-miniconda@v2
         with:
           activate-environment: true
-          auto-update-conda: false
           python-version: ${{ matrix.python-version }}
-          auto-activate-base: true
+          # auto-activate-base: true
           miniforge-variant: Mambaforge
           miniforge-version: latest
           use-mamba: true
