@@ -12,7 +12,7 @@ include_dirs = [np.get_include()]
 library_dirs = []
 
 conda_fpath = os.environ.get("CONDA")
-conda_env_fpath = osp.join(conda_fpath, "envs", "disparity_interpolation")
+conda_env_fpath = osp.join(str(conda_fpath), "envs", "disparity_interpolation")
 
 if platform.system() == "Windows":
     library_dirs += [osp.join(conda_env_fpath, "Library", "lib")]
