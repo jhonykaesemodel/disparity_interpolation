@@ -27,7 +27,7 @@ jobs:
     - name: artifacts
       uses: actions/upload-artifact@v2
       with:
-        path: dist/*-manylinux.whl
+        path: dist/*-manylinux*.whl
 
   upload_pypi:
     needs: [build_linux_wheels]
