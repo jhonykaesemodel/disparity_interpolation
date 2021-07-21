@@ -61,7 +61,7 @@ jobs:
           use-mamba: true
 
       - name: Install dependencies
-        run: conda install -n foo wheel opencv numpy cython
+        run: conda install wheel opencv numpy cython
 
       - name: Build
         run: python setup.py bdist_wheel
