@@ -1,3 +1,9 @@
+[![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-370/)
+[![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
+[![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+![Linux CI](https://github.com/jhonykaesemodel/disparity_interpolation/actions/workflows/github-deploy.yml/badge.svg)
+
 ## Fast nearest-neighbor interpolation of disparity maps using Cython
 
 Some stereo matching methods such as [Semi-Global Matching (SGM)](https://core.ac.uk/download/pdf/11134866.pdf) might provide sparse disparity maps, meaning that some pixels will not have valid disparity values. In those cases, an interpolation of the predicted disparity map might be needed for evaluation against semi-dense ground-truth, as in the [KITTI Stereo 2015 benchmark](http://www.cvlibs.net/datasets/kitti/eval_scene_flow.php?benchmark=stereo).
