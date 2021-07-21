@@ -2,7 +2,7 @@ import numpy as np
 from numba import njit
 
 
-# @njit
+@njit
 def nn_interpolation(disparity: np.ndarray) -> np.ndarray:
     height = disparity.shape[0]
     width = disparity.shape[1]
@@ -29,7 +29,7 @@ def nn_interpolation(disparity: np.ndarray) -> np.ndarray:
                             disparity[v, u_curr] = d_ipol
                 # reset counter
                 count = 0
-                # otherwise increment counter
+            # otherwise increment counter
             else:
                 count += 1
 
