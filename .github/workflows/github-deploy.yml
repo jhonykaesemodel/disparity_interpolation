@@ -65,7 +65,7 @@ jobs:
 
       - name: DEBUG
         run: |
-          cd \User\miniconda3\envs\disparity_interpolation\lib\
+          cd /Users/miniconda3/envs/disparity_interpolation/lib/
           ls
 
       - name: Build
