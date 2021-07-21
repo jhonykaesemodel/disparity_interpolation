@@ -7,10 +7,10 @@ def nn_interpolation(disparity: np.ndarray) -> np.ndarray:
     height = disparity.shape[0]
     width = disparity.shape[1]
 
-    for v in range(height):
+    for v in range(0, height):
         # init counter
         count = 0
-        for u in range(width):
+        for u in range(0, width):
             # if disparity valid
             if disparity[v, u] >= 0:
                 # at least one pixel requires interpolation
@@ -23,7 +23,7 @@ def nn_interpolation(disparity: np.ndarray) -> np.ndarray:
                     if u1 > 0 and u2 < width - 1:
                         d_ipol = min(disparity[v, u1 - 1], disparity[v, u2 + 1])
                         u_curr = u1
-                        for u_curr in range(u2):
+                        for u_curr in range(0, u2):
                             disparity[v, u_curr] = d_ipol
                         for u_curr in range(u1, u2):
                             disparity[v, u_curr] = d_ipol
@@ -34,9 +34,9 @@ def nn_interpolation(disparity: np.ndarray) -> np.ndarray:
                 count += 1
 
         # extrapolate to the left
-        for u in range(width):
+        for u in range(0, width):
             if disparity[v, u] >= 0:
-                for u2 in range(u):
+                for u2 in range(0, u):
                     disparity[v, u2] = disparity[v, u]
                 break
 
