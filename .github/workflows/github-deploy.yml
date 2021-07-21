@@ -38,7 +38,7 @@ jobs:
         path: dist/*-manylinux*.whl
 
   build_win_macos_wheels:
-    name: Build wheels on ${{ matrix.os }}
+    name: Build wheels on ${{ matrix.os }} (${{ matrix.python-version }})
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
