@@ -1,6 +1,8 @@
 import numpy as np
 from numba import njit
 
+
+@njit
 def nn_interpolation(disparity: np.ndarray) -> np.ndarray:
 
     height = disparity.shape[0]
@@ -21,10 +23,9 @@ def nn_interpolation(disparity: np.ndarray) -> np.ndarray:
                     if u1 > 0 and u2 < width - 1:
                         d_ipol = min(disparity[v, u1 - 1], disparity[v, u2 + 1])
                         u_curr = u1
-                        while u_curr <= u2:
+                        for u_curr in range(u2):
                             disparity[v, u_curr] = d_ipol
-                            u_curr += 1
-                        for u_curr in range(u1, u2 + 1):
+                        for u_curr in range(u1, u2):
                             disparity[v, u_curr] = d_ipol
                 #  reset counter
                 count = 0
@@ -42,7 +43,7 @@ def nn_interpolation(disparity: np.ndarray) -> np.ndarray:
         #  extrapolate to the right
         for u in range(width - 1, -1, -1):
             if disparity[v, u] >= 0:
-                for u2 in range(u + 1, width - 1):
+                for u2 in range(u + 1, width):
                     disparity[v, u2] = disparity[v, u]
                 break
 
@@ -55,10 +56,16 @@ def nn_interpolation(disparity: np.ndarray) -> np.ndarray:
                     disparity[v2, u] = disparity[v, u]
                 break
 
-    #  extrapolate to the bottom
-    for v in range(height - 1, -1, step=-1):
-        if disparity[v, u] >= 0:
-            for v2 in range(v + 1, height):
-                disparity[v2, u] = disparity[v, u]
-            break
+        #  extrapolate to the bottom
+        for v in range(height - 1, -1, -1):
+            if disparity[v, u] >= 0:
+                for v2 in range(v + 1, height):
+                    disparity[v2, u] = disparity[v, u]
+                break
     return disparity
+
+
+if __name__ == "__main__":
+    disparity = np.random.rand(1024, 1024)
+    out = nn_interpolation(disparity)
+    print(out)
