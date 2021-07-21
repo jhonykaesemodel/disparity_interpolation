@@ -63,11 +63,6 @@ jobs:
       - name: Install dependencies
         run: conda install wheel opencv numpy cython
 
-      - name: DEBUG
-        run: |
-          cd /Users/runner/miniconda3/envs/disparity_interpolation/lib/
-          ls
-
       - name: Build
         run: python setup.py bdist_wheel
 
