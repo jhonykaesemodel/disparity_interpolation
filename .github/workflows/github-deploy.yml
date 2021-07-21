@@ -23,11 +23,11 @@ jobs:
     - name: Build python manylinux
       run: /opt/python/${{ matrix.python-version }}/bin/python setup.py bdist_wheel
     - name: Audit python wheel
-      run: auditwheel repair dist/*.whl
+      run: auditwheel repair wheelhouse/*.whl
     - name: artifacts
       uses: actions/upload-artifact@v2
       with:
-        path: dist/*-manylinux*.whl
+        path: wheelhouse/*-manylinux*.whl
 
   upload_pypi:
     needs: [build_linux_wheels]
@@ -37,7 +37,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: artifact
-          path: dist
+          path: wheelhouse
 
       - uses: pypa/gh-action-pypi-publish@v1.4.2
         with:
