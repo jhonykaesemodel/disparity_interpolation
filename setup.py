@@ -47,7 +47,7 @@ if __name__ == "__main__":
         long_description = f.read()
     setup(
         name="disparity_interpolation",
-        version="1.0.3",
+        version="1.0.4",
         packages=find_packages(),
         author="Jhony Kaesemodel Pontes",
         description="Nearest neighbor interpolation for disparity images with missing parts.",
