@@ -11,19 +11,19 @@ import platform
 include_dirs = [np.get_include()]
 library_dirs = []
 
-conda_fpath = os.environ.get("CONDA")
+conda_fpath = osp.join(os.environ.get("CONDA"), "envs", "disparity_interpolation")
 if platform.system() == "Windows":
-    library_dirs += [osp.join(conda_fpath, "envs", "foo", "Library", "lib")]
+    library_dirs += [osp.join(conda_fpath, "Library", "lib")]
     libraries = ["opencv_core452", "opencv_imgproc452"]
-    opencv_fpath = osp.join(conda_fpath, "envs", "foo", "Library", "include")
+    opencv_fpath = osp.join(conda_fpath, "Library", "include")
 elif platform.system() == "Linux":
     library_dirs += ["/usr/local/include/lib"]
     libraries = ["opencv_core", "opencv_imgproc"]
     opencv_fpath = "/usr/local/include/opencv4"
 else:  # macos
-    library_dirs += [osp.join(conda_fpath, "envs", "foo", "lib")]
+    library_dirs += [osp.join(conda_fpath, "lib")]
     libraries = ["opencv_core", "opencv_imgproc"]
-    opencv_fpath = osp.join(conda_fpath, "envs", "foo", "include", "opencv4")
+    opencv_fpath = osp.join(conda_fpath, "include", "opencv4")
 include_dirs += [opencv_fpath]
 
 
@@ -49,7 +49,7 @@ if __name__ == "__main__":
 
     setup(
         name="disparity_interpolation",
-        version="1.0.4",
+        version="1.0.5",
         packages=find_packages(),
         author="Jhony Kaesemodel Pontes",
         description="Nearest neighbor interpolation for disparity images with missing parts.",

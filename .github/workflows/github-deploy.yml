@@ -54,7 +54,7 @@ jobs:
       - uses: conda-incubator/setup-miniconda@v2
         with:
           python-version: ${{ matrix.python-version }}
-          activate-environment: foo
+          activate-environment: disparity_interpolation
           auto-activate-base: true
           miniforge-variant: Mambaforge
           miniforge-version: latest
