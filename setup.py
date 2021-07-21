@@ -11,7 +11,7 @@ import platform
 include_dirs = [np.get_include()]
 library_dirs = []
 
-conda_fpath = str(os.environ.get("CONDA"))[:-8]
+conda_fpath = os.environ.get("CONDA")
 if platform.system() == "Windows":
     library_dirs += [osp.join(conda_fpath, "Library", "lib")]
     libraries = ["opencv_core452", "opencv_imgproc452"]
@@ -21,9 +21,9 @@ elif platform.system() == "Linux":
     libraries = ["opencv_core", "opencv_imgproc"]
     opencv_fpath = "/usr/local/include/opencv4"
 else:  # macos
-    library_dirs += [osp.join("/Users/runner/miniconda3", "lib")]
+    library_dirs += [osp.join(conda_fpath, "lib")]
     libraries = ["opencv_core", "opencv_imgproc"]
-    opencv_fpath = osp.join("/Users/runner/miniconda3", "include", "opencv4")
+    opencv_fpath = osp.join(conda_fpath, "include", "opencv4")
 include_dirs += [opencv_fpath]
 
 
