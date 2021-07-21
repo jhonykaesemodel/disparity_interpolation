@@ -1,4 +1,4 @@
-name: Build and upload to PyPI
+name: Build and publish to PyPI
 
 # Build on every branch push, tag push, and pull request change:
 on: [push, pull_request]
@@ -62,9 +62,6 @@ jobs:
 
       - name: Install dependencies
         run: conda install wheel opencv numpy cython
-
-      - name: Check numpy version
-        run: python -c "import numpy; print(numpy.__version__)"
 
       - name: Build
         run: python setup.py bdist_wheel
