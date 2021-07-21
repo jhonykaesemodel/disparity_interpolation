@@ -2,11 +2,11 @@ import numpy as np
 from numba import njit
 
 
-@njit
+# @njit
 def nn_interpolation(disparity: np.ndarray) -> np.ndarray:
-
     height = disparity.shape[0]
     width = disparity.shape[1]
+
     for v in range(height):
         # init counter
         count = 0
@@ -66,6 +66,12 @@ def nn_interpolation(disparity: np.ndarray) -> np.ndarray:
 
 
 if __name__ == "__main__":
-    disparity = np.random.rand(1024, 1024)
+
+    disparity = np.random.rand(4096, 4096)
+
+    import time
+
+    start = time.time()
     out = nn_interpolation(disparity)
-    print(out)
+
+    print(time.time() - start)
