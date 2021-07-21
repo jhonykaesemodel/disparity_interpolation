@@ -11,7 +11,7 @@ import platform
 include_dirs = [np.get_include()]
 library_dirs = []
 
-conda_fpath = os.environ.get("CONDA")
+conda_fpath = os.environ.get("CONDA")[:-8]
 if platform.system() == "Windows":
     library_dirs += [osp.join(conda_fpath, "Library", "lib")]
     libraries = ["opencv_core452", "opencv_imgproc452"]
